@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pinterest</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #fff;
+        margin: 0;
+      }
+
+      /* Header */
+      .header {
+        background: #e60023;
+        color: white;
+        padding: 100px 20px 60px;
+        text-align: center;
+        border-bottom-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+      }
+
+      .header img {
+        width: 60px;
+        height: auto;
+        margin-bottom: 15px;
+      }
+
+      .header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin-top: 10px;
+      }
+
+      /* Upload Box */
+      .upload-section {
+        max-width: 600px;
+        margin: -60px auto 60px;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.07);
+      }
+
+      .upload-section h2 {
+        font-weight: 600;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .btn-upload {
+        background: #e60023;
+        color: white;
+        font-weight: 600;
+        border-radius: 30px;
+        padding: 10px 30px;
+        transition: all 0.3s;
+      }
+
+      .btn-upload:hover {
+        background: #b0001c;
+      }
+
+      /* Centering the gallery */
+      .centered-gallery {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 60vh;
+      }
+
+      .gallery-grid {
+        width: 100%;
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 0 20px;
+      }
+
+      .gallery-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        transition: transform 0.3s;
+      }
+
+      .gallery-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .gallery-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .gallery-footer {
+        padding: 15px;
+        font-size: 0.9rem;
+        text-align: center;
+        color: #555;
+        background: #f9fafb;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Hero Header -->
+    <div class="header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png" alt="Pinterest Logo">
+      <h1>Pinterest</h1>
+      <p>Discover and share beautiful images</p>
+    </div>
+
+    <!-- Upload Form Section -->
+    <div class="upload-section">
+      <h2>Upload Image</h2>
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          {{ form }}
+        </div>
+        <div class="text-center">
+          <input type="submit" class="btn btn-upload" value="Upload">
+        </div>
+      </form>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="container centered-gallery">
+      <div class="gallery-grid">
+        {% for x in img %}
+        <div class="gallery-card">
+          <img src="{{ x.photo.url }}" alt="Uploaded Image">
+          <div class="gallery-footer">Uploaded on {{ x.date }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
